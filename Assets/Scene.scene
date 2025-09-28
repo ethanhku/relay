@@ -1210,7 +1210,7 @@
   PrefabRemaps:
     []
   Name: Hint 2
-  Enabled: false
+  Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 2.000000, z: -150.000000}
@@ -3116,7 +3116,7 @@
   PrefabRemaps:
     []
   Name: Status
-  Enabled: false
+  Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: -5.000000, z: -150.000000}
@@ -3131,7 +3131,7 @@
   PrefabRemaps:
     []
   Name: Start
-  Enabled: false
+  Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: -12.000000, z: -150.000000}
@@ -3834,7 +3834,7 @@
   PrefabRemaps:
     []
   Name: "--Examples--"
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 0.000000, z: -50.000000}
@@ -4075,7 +4075,7 @@
   PrefabRemaps:
     []
   Name: BreadboardAssistant
-  Enabled: false
+  Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 0.000000, z: 0.000000}
@@ -4371,7 +4371,7 @@
   PrefabRemaps:
     []
   Name: Hint 1
-  Enabled: false
+  Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: -8.000000, z: -150.000000}
@@ -4565,7 +4565,7 @@
   PrefabRemaps:
     []
   Name: BreadboardUI
-  Enabled: false
+  Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 0.000000, z: -145.000000}
@@ -5196,7 +5196,7 @@
   PrefabRemaps:
     []
   Name: AROverlay
-  Enabled: false
+  Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 0.000000, z: 0.000000}
@@ -5716,9 +5716,6 @@
   Enabled: true
   ScriptAsset: !<reference> 90463a70-a2a4-4517-b5a8-a17f1120a88a
   ScriptInputsDefault:
-    dynamicAudioOutput: true
-    microphoneRecorder: true
-    instructions: true
     haveVideoInput: true
     haveAudioOutput: true
     voice: true
@@ -5727,9 +5724,9 @@
   ScriptInputs:
     "":
       websocketRequirementsObj: !<reference.SceneObject> 96d0b561-304a-429a-a6e4-8e8867fcf17c
-      dynamicAudioOutput: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
-      microphoneRecorder: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
-      instructions: "You are a circuit analysis assistant for non-inverting op amp circuits. You help with two main tasks: 1) Identify resistor values by reading color bands, and 2) Show where resistors should be placed in non-inverting op amp circuits. When the user asks about resistor placement, use the showResistorPlacement tool to highlight the correct location with a green marker."
+      dynamicAudioOutput: !<MappingBased.AssignableType> aa2df9ae-bf35-4517-b5e0-89bc152196e6
+      microphoneRecorder: !<MappingBased.AssignableType_1> 3bc4f56d-05e2-4ec4-9b53-d2232303cb7c
+      instructions: "You are a circuit analysis assistant for resistor op amp circuits. You help with two main tasks: 1) Identify resistor values by reading color bands, and 2) Show where resistors should be placed in op amp circuits. When the user asks about resistor placement, use the showResistorPlacement tool to highlight the correct location with a green marker."
       haveVideoInput: true
       haveAudioOutput: true
       voice: Puck
@@ -5993,7 +5990,7 @@
   PrefabRemaps:
     []
   Name: DepthMapper
-  Enabled: false
+  Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 0.000000, z: 0.000000}

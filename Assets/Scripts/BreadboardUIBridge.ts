@@ -89,9 +89,9 @@ export class BreadboardUIBridge extends BaseScriptComponent {
     });
 
     // Initialize text content
-    this.hintTitle.text = "Relay Analysis";
+    this.hintTitle.text = "Go!";
     this.hintText.text = "Press button to start/stop analysis";
-    this.statusText.text = "Ready for Relay analysis";
+    this.statusText.text = "Ready for Relay";
 
     // Update button text
     this.updateButtonText();
@@ -149,11 +149,12 @@ export class BreadboardUIBridge extends BaseScriptComponent {
     // Update UI for Relay analysis mode
     this.updateStatusText("Analyzing Relay circuit...");
     
-    // Hide hint text after first button press
+    // Hide hint text and title after first button press
     if (!this.hasPressedButtonOnce) {
       this.hasPressedButtonOnce = true;
-      // Hide the hint text by making it invisible
+      // Hide the hint text and title by making them invisible
       this.hintText.sceneObject.enabled = false;
+      this.hintTitle.sceneObject.enabled = false;
     }
 
     // Update button text
@@ -193,10 +194,11 @@ export class BreadboardUIBridge extends BaseScriptComponent {
   }
 
   private revertToOriginalState() {
-    // Show hint text again
+    // Show hint text and title again
     this.hintText.sceneObject.enabled = true;
+    this.hintTitle.sceneObject.enabled = true;
     this.hintText.text = "Press button to start/stop analysis";
-    this.updateStatusText("Ready for Relay analysis");
+    this.updateStatusText("Ready for Relay");
     
     // Reset the flag so hint can be hidden again on next start
     this.hasPressedButtonOnce = false;
