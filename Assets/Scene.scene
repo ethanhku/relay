@@ -1073,9 +1073,10 @@
       highlightPulseSpeed: !<float> 1.000000
       connectionLineWidth: 0.005000
       labelOffset: 0.050000
-      highlightMaterial: !<reference.Material> 94a3898e-76e8-4d97-816e-5205d981e9f7
-      connectionMaterial: !<reference.Material> 94a3898e-76e8-4d97-816e-5205d981e9f7
-      labelMaterial: !<reference.Material> 94a3898e-76e8-4d97-816e-5205d981e9f7
+      highlightMaterial: !<reference.Material> d10dc291-b270-4f1f-95c8-68624321f768
+      connectionMaterial: !<reference.Material> f68759df-4a8d-404b-950c-1e80762a0c46
+      labelMaterial: !<reference.Material> 3f90c471-6804-449c-b147-f53652382171
+      highlightMesh: !<reference.RenderMeshVisual> fcfc2646-a5a7-4801-b5bf-388c06aeda03
   ScriptTypes:
     "":
       {}

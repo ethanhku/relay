@@ -33,6 +33,7 @@
     connectionMaterial: false
     depthMapper: false
     highlightMaterial: false
+    highlightMesh: false
     highlightPulseSpeed: false
     highlightSize: false
     labelMaterial: false
@@ -52,6 +53,7 @@
       highlightMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
       connectionMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
       labelMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      highlightMesh: !<reference.RenderMeshVisual> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
@@ -76,4 +78,5 @@
     - // @input Asset.Material highlightMaterial
     - // @input Asset.Material connectionMaterial
     - // @input Asset.Material labelMaterial
+    - // @input Component.RenderMeshVisual highlightMesh
     - '// @ui {"widget":"group_end"}'

@@ -68,6 +68,8 @@ export class BreadboardAROverlay extends BaseScriptComponent {
   private connectionMaterial: Material;
   @input
   private labelMaterial: Material;
+  @input
+  private highlightMesh: RenderMeshVisual;
   @ui.group_end
 
   // AR overlay state
@@ -221,7 +223,18 @@ export class BreadboardAROverlay extends BaseScriptComponent {
     // Create highlight sphere
     const highlightObject = global.scene.createSceneObject("HoleHighlight_" + overlayId);
     const renderMesh = highlightObject.createComponent("Component.RenderMeshVisual");
-    // Note: Using a basic mesh - in actual implementation, you'd load the Sphere mesh
+    
+    print("🎯 Creating overlay at position: " + worldPos.x + ", " + worldPos.y + ", " + worldPos.z);
+    
+    // Assign the mesh if available
+    if (this.highlightMesh && this.highlightMesh.mesh) {
+      renderMesh.mesh = this.highlightMesh.mesh;
+      print("✅ Assigned highlight mesh: " + this.highlightMesh.mesh.name);
+    } else {
+      print("⚠️ No highlight mesh assigned - overlay will be invisible");
+      print("💡 Drag a SceneObject with RenderMeshVisual component to the Highlight Mesh field");
+    }
+    
     renderMesh.mainMaterial = this.highlightMaterial.clone();
     
     // Set up material properties
@@ -538,5 +551,40 @@ export class BreadboardAROverlay extends BaseScriptComponent {
       // Note: Sequential placement would be implemented with Lens Studio's setTimeout
       this.showPlacementGuidance(component, targetHoles[index]);
     });
+  }
+
+  // Test method to create a visible overlay at a specific position
+  public testCreateVisibleOverlay(): void {
+    print("🧪 Testing visible overlay creation...");
+    
+    // Create a test overlay at a fixed position
+    const testObject = global.scene.createSceneObject("TestOverlay");
+    const renderMesh = testObject.createComponent("Component.RenderMeshVisual");
+    
+    // Try to assign mesh if available
+    if (this.highlightMesh && this.highlightMesh.mesh) {
+      renderMesh.mesh = this.highlightMesh.mesh;
+      print("✅ Test overlay has mesh: " + this.highlightMesh.mesh.name);
+    } else {
+      print("❌ Test overlay has NO mesh - will be invisible");
+      print("💡 Please assign a SceneObject with RenderMeshVisual to the Highlight Mesh field");
+    }
+    
+    // Assign material
+    if (this.highlightMaterial) {
+      renderMesh.mainMaterial = this.highlightMaterial.clone();
+      const material = renderMesh.mainMaterial;
+      material.mainPass.baseColor = new vec4(0, 1, 0, 1); // Bright green
+      print("✅ Test overlay has green material");
+    } else {
+      print("❌ Test overlay has NO material");
+    }
+    
+    // Position it in front of the camera
+    testObject.getTransform().setWorldPosition(new vec3(0, 0, -1));
+    testObject.getTransform().setLocalScale(new vec3(0.1, 0.1, 0.1));
+    
+    print("🎯 Test overlay created at position (0, 0, -1)");
+    print("💡 Look for a green sphere in front of the camera");
   }
 }
