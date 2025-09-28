@@ -1062,6 +1062,9 @@
     highlightPulseSpeed: true
     connectionLineWidth: true
     labelOffset: true
+    highlightMethod: true
+    outlineThickness: true
+    fresnelIntensity: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
@@ -1073,10 +1076,15 @@
       highlightPulseSpeed: !<float> 1.000000
       connectionLineWidth: 0.005000
       labelOffset: 0.050000
+      highlightMethod: inverted_hull
+      outlineThickness: 0.002000
+      fresnelIntensity: !<float> 2.000000
       highlightMaterial: !<reference.Material> d10dc291-b270-4f1f-95c8-68624321f768
       connectionMaterial: !<reference.Material> f68759df-4a8d-404b-950c-1e80762a0c46
       labelMaterial: !<reference.Material> 3f90c471-6804-449c-b147-f53652382171
       highlightMesh: !<reference.RenderMeshVisual> fcfc2646-a5a7-4801-b5bf-388c06aeda03
+      outlineMaterial: !<reference.Material> d71a44d6-c998-4303-af98-b9741f36b7cb
+      fresnelMaterial: !<reference.Material> ea80932e-9b29-41d2-8e9c-5d9904b73872
   ScriptTypes:
     "":
       {}

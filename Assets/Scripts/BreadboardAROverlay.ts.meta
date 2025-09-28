@@ -32,12 +32,17 @@
     connectionLineWidth: false
     connectionMaterial: false
     depthMapper: false
+    fresnelIntensity: false
+    fresnelMaterial: false
     highlightMaterial: false
     highlightMesh: false
+    highlightMethod: false
     highlightPulseSpeed: false
     highlightSize: false
     labelMaterial: false
     labelOffset: false
+    outlineMaterial: false
+    outlineThickness: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -50,16 +55,26 @@
       highlightPulseSpeed: !<float> 1.000000
       connectionLineWidth: 0.005000
       labelOffset: 0.050000
+      highlightMethod: inverted_hull
+      outlineThickness: 0.002000
+      fresnelIntensity: !<float> 2.000000
       highlightMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
       connectionMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
       labelMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
       highlightMesh: !<reference.RenderMeshVisual> 00000000-0000-0000-0000-000000000000
+      outlineMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      fresnelMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"label", "label":"AR Overlay System for Breadboard Circuit Guidance"}'
+    - '// @ui {"widget":"label", "label":"🔧 Setup Guide:"}'
+    - '// @ui {"widget":"label", "label":"1. Create a sphere mesh asset in Lens Studio"}'
+    - "// @ui {\"widget\":\"label\", \"label\":\"2. Assign it to 'Highlight Mesh' field\"}"
+    - '// @ui {"widget":"label", "label":"3. Create materials: Highlight, Outline, Fresnel"}'
+    - '// @ui {"widget":"label", "label":"4. Choose highlighting method: Inverted Hull (recommended)"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Setup"}'
     - // @input AssignableType breadboardAssistant
@@ -72,6 +87,9 @@
     - // @input float highlightPulseSpeed = 1
     - // @input float connectionLineWidth = 0.005
     - // @input float labelOffset = 0.05
+    - '// @input string highlightMethod = "inverted_hull" {"widget":"combobox", "values":[{"label":"Inverted Hull", "value":"inverted_hull"}, {"label":"Fresnel Glow", "value":"fresnel_glow"}, {"label":"Simple Highlight", "value":"simple_highlight"}]}'
+    - // @input float outlineThickness = 0.002
+    - // @input float fresnelIntensity = 2
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Materials"}'
@@ -79,4 +97,6 @@
     - // @input Asset.Material connectionMaterial
     - // @input Asset.Material labelMaterial
     - // @input Component.RenderMeshVisual highlightMesh
+    - // @input Asset.Material outlineMaterial
+    - // @input Asset.Material fresnelMaterial
     - '// @ui {"widget":"group_end"}'

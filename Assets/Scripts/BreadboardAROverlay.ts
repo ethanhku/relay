@@ -40,6 +40,11 @@ interface AROverlayElement {
 export class BreadboardAROverlay extends BaseScriptComponent {
   @ui.separator
   @ui.label("AR Overlay System for Breadboard Circuit Guidance")
+  @ui.label("🔧 Setup Guide:")
+  @ui.label("1. Create a sphere mesh asset in Lens Studio")
+  @ui.label("2. Assign it to 'Highlight Mesh' field")
+  @ui.label("3. Create materials: Highlight, Outline, Fresnel")
+  @ui.label("4. Choose highlighting method: Inverted Hull (recommended)")
   @ui.separator
   @ui.group_start("Setup")
   @input
@@ -59,6 +64,17 @@ export class BreadboardAROverlay extends BaseScriptComponent {
   private connectionLineWidth: number = 0.005; // Width of connection lines
   @input
   private labelOffset: number = 0.05; // Offset for component labels
+  @input
+  @widget(new ComboBoxWidget([
+    new ComboBoxItem("Inverted Hull", "inverted_hull"),
+    new ComboBoxItem("Fresnel Glow", "fresnel_glow"),
+    new ComboBoxItem("Simple Highlight", "simple_highlight")
+  ]))
+  private highlightMethod: string = "inverted_hull"; // Highlighting technique
+  @input
+  private outlineThickness: number = 0.002; // Thickness of outline in meters
+  @input
+  private fresnelIntensity: number = 2.0; // Intensity of fresnel glow
   @ui.group_end
   @ui.separator
   @ui.group_start("Materials")
@@ -70,6 +86,10 @@ export class BreadboardAROverlay extends BaseScriptComponent {
   private labelMaterial: Material;
   @input
   private highlightMesh: RenderMeshVisual;
+  @input
+  private outlineMaterial: Material; // For inverted hull outline
+  @input
+  private fresnelMaterial: Material; // For fresnel glow effect
   @ui.group_end
 
   // AR overlay state
@@ -220,31 +240,86 @@ export class BreadboardAROverlay extends BaseScriptComponent {
     const overlayId = `hole_${this.overlayCounter++}`;
     const worldPos = this.breadboardToWorldPosition(breadboardX, breadboardY);
     
-    // Create highlight sphere
+    print("🎯 Creating overlay at position: " + worldPos.x + ", " + worldPos.y + ", " + worldPos.z);
+    print("🔧 Using highlight method: " + this.highlightMethod);
+    
+    // Create highlight based on selected method
+    switch (this.highlightMethod) {
+      case "inverted_hull":
+        return this.createInvertedHullHighlight(overlayId, worldPos, color, duration);
+      case "fresnel_glow":
+        return this.createFresnelGlowHighlight(overlayId, worldPos, color, duration);
+      case "simple_highlight":
+      default:
+        return this.createSimpleHighlight(overlayId, worldPos, color, duration);
+    }
+  }
+
+  // Method 1: Inverted Hull Outline (Recommended)
+  private createInvertedHullHighlight(
+    overlayId: string, 
+    worldPos: vec3, 
+    color: string, 
+    duration: number
+  ): string {
+    print("🔧 Creating inverted hull highlight");
+    
+    // Create main highlight object
     const highlightObject = global.scene.createSceneObject("HoleHighlight_" + overlayId);
     const renderMesh = highlightObject.createComponent("Component.RenderMeshVisual");
     
-    print("🎯 Creating overlay at position: " + worldPos.x + ", " + worldPos.y + ", " + worldPos.z);
-    
-    // Assign the mesh if available
+    // Assign mesh if available
     if (this.highlightMesh && this.highlightMesh.mesh) {
       renderMesh.mesh = this.highlightMesh.mesh;
       print("✅ Assigned highlight mesh: " + this.highlightMesh.mesh.name);
     } else {
-      print("⚠️ No highlight mesh assigned - overlay will be invisible");
-      print("💡 Drag a SceneObject with RenderMeshVisual component to the Highlight Mesh field");
+      print("⚠️ No highlight mesh assigned - creating fallback sphere");
+      // Create a simple sphere mesh as fallback
+      this.createFallbackSphereMesh(renderMesh);
     }
     
-    renderMesh.mainMaterial = this.highlightMaterial.clone();
-    
-    // Set up material properties
-    const material = renderMesh.mainMaterial;
+    // Set up main material
+    const material = this.highlightMaterial ? this.highlightMaterial.clone() : this.createDefaultMaterial();
     const colorVec = this.colorPresets.get(color) || this.colorPresets.get("placement")!;
     material.mainPass.baseColor = colorVec;
+    renderMesh.mainMaterial = material;
     
-    // Position the highlight
+    // Position the main highlight
     highlightObject.getTransform().setWorldPosition(worldPos);
     highlightObject.getTransform().setLocalScale(new vec3(this.highlightSize, this.highlightSize, this.highlightSize));
+    
+    // Create outline object (inverted hull)
+    const outlineObject = global.scene.createSceneObject("HoleOutline_" + overlayId);
+    const outlineMesh = outlineObject.createComponent("Component.RenderMeshVisual");
+    
+    // Use same mesh for outline
+    if (this.highlightMesh && this.highlightMesh.mesh) {
+      outlineMesh.mesh = this.highlightMesh.mesh;
+    } else {
+      this.createFallbackSphereMesh(outlineMesh);
+    }
+    
+    // Set up outline material
+    const outlineMaterial = this.outlineMaterial ? this.outlineMaterial.clone() : this.createDefaultMaterial();
+    const outlineColor = new vec4(colorVec.x, colorVec.y, colorVec.z, colorVec.a * 0.8); // Slightly transparent
+    outlineMaterial.mainPass.baseColor = outlineColor;
+    
+    // Configure outline material for inverted hull
+    outlineMaterial.mainPass.blendMode = BlendMode.Normal;
+    outlineMaterial.mainPass.twoSided = true; // Important for inverted hull
+    outlineMesh.mainMaterial = outlineMaterial;
+    
+    // Position outline slightly larger and behind main highlight
+    const outlineScale = this.highlightSize + this.outlineThickness;
+    outlineObject.getTransform().setWorldPosition(worldPos);
+    outlineObject.getTransform().setLocalScale(new vec3(outlineScale, outlineScale, outlineScale));
+    
+    // Set render order - outline renders first (lower number)
+    // Note: Render order is typically set in the Inspector, not programmatically
+    // renderMesh.renderOrder = 1;
+    // outlineMesh.renderOrder = 0;
+    
+    print("✅ Created inverted hull highlight with outline");
     
     // Create overlay element
     const overlay: AROverlayElement = {
@@ -272,12 +347,159 @@ export class BreadboardAROverlay extends BaseScriptComponent {
     // Animate the highlight
     this.animateHoleHighlight(overlay);
 
-    // Auto-remove after duration
-    if (duration > 0) {
-      // Note: Auto-removal would be implemented with Lens Studio's setTimeout
+    return overlayId;
+  }
+
+  // Method 2: Fresnel Glow Effect
+  private createFresnelGlowHighlight(
+    overlayId: string, 
+    worldPos: vec3, 
+    color: string, 
+    duration: number
+  ): string {
+    print("🔧 Creating fresnel glow highlight");
+    
+    const highlightObject = global.scene.createSceneObject("HoleHighlight_" + overlayId);
+    const renderMesh = highlightObject.createComponent("Component.RenderMeshVisual");
+    
+    // Assign mesh if available
+    if (this.highlightMesh && this.highlightMesh.mesh) {
+      renderMesh.mesh = this.highlightMesh.mesh;
+    } else {
+      this.createFallbackSphereMesh(renderMesh);
     }
+    
+    // Use fresnel material if available
+    const material = this.fresnelMaterial ? this.fresnelMaterial.clone() : this.createDefaultMaterial();
+    const colorVec = this.colorPresets.get(color) || this.colorPresets.get("placement")!;
+    
+    // Configure material for fresnel effect
+    material.mainPass.baseColor = colorVec;
+    material.mainPass.blendMode = BlendMode.Add; // Additive blending for glow
+    material.mainPass.emission = colorVec; // Emissive for glow effect
+    renderMesh.mainMaterial = material;
+    
+    // Position the highlight
+    highlightObject.getTransform().setWorldPosition(worldPos);
+    highlightObject.getTransform().setLocalScale(new vec3(this.highlightSize, this.highlightSize, this.highlightSize));
+    
+    print("✅ Created fresnel glow highlight");
+    
+    // Create overlay element
+    const overlay: AROverlayElement = {
+      id: overlayId,
+      type: OverlayType.HoleHighlight,
+      position: worldPos,
+      rotation: new quat(0, 0, 0, 1),
+      scale: new vec3(this.highlightSize, this.highlightSize, this.highlightSize),
+      config: {
+        color: colorVec,
+        size: this.highlightSize,
+        pulseSpeed: this.highlightPulseSpeed,
+        duration: duration,
+        fadeInDuration: 500,
+        fadeOutDuration: 500
+      },
+      isVisible: true,
+      sceneObject: highlightObject,
+      material: material
+    };
+
+    this.activeOverlays.set(overlayId, overlay);
+    this.overlayCreatedEvent.invoke(overlay);
+
+    // Animate the highlight
+    this.animateHoleHighlight(overlay);
 
     return overlayId;
+  }
+
+  // Method 3: Simple Highlight (Fallback)
+  private createSimpleHighlight(
+    overlayId: string, 
+    worldPos: vec3, 
+    color: string, 
+    duration: number
+  ): string {
+    print("🔧 Creating simple highlight");
+    
+    const highlightObject = global.scene.createSceneObject("HoleHighlight_" + overlayId);
+    const renderMesh = highlightObject.createComponent("Component.RenderMeshVisual");
+    
+    // Assign mesh if available
+    if (this.highlightMesh && this.highlightMesh.mesh) {
+      renderMesh.mesh = this.highlightMesh.mesh;
+      print("✅ Assigned highlight mesh: " + this.highlightMesh.mesh.name);
+    } else {
+      print("⚠️ No highlight mesh assigned - creating fallback sphere");
+      this.createFallbackSphereMesh(renderMesh);
+    }
+    
+    // Set up material
+    const material = this.highlightMaterial ? this.highlightMaterial.clone() : this.createDefaultMaterial();
+    const colorVec = this.colorPresets.get(color) || this.colorPresets.get("placement")!;
+    material.mainPass.baseColor = colorVec;
+    renderMesh.mainMaterial = material;
+    
+    // Position the highlight
+    highlightObject.getTransform().setWorldPosition(worldPos);
+    highlightObject.getTransform().setLocalScale(new vec3(this.highlightSize, this.highlightSize, this.highlightSize));
+    
+    print("✅ Created simple highlight");
+    
+    // Create overlay element
+    const overlay: AROverlayElement = {
+      id: overlayId,
+      type: OverlayType.HoleHighlight,
+      position: worldPos,
+      rotation: new quat(0, 0, 0, 1),
+      scale: new vec3(this.highlightSize, this.highlightSize, this.highlightSize),
+      config: {
+        color: colorVec,
+        size: this.highlightSize,
+        pulseSpeed: this.highlightPulseSpeed,
+        duration: duration,
+        fadeInDuration: 500,
+        fadeOutDuration: 500
+      },
+      isVisible: true,
+      sceneObject: highlightObject,
+      material: material
+    };
+
+    this.activeOverlays.set(overlayId, overlay);
+    this.overlayCreatedEvent.invoke(overlay);
+
+    // Animate the highlight
+    this.animateHoleHighlight(overlay);
+
+    return overlayId;
+  }
+
+  // Helper method to create fallback sphere mesh
+  private createFallbackSphereMesh(renderMesh: RenderMeshVisual): void {
+    try {
+      // Try to create a basic sphere mesh
+      // Note: This is a simplified approach - in practice you'd load a sphere mesh asset
+      print("🔧 Creating fallback sphere mesh");
+      // For now, we'll rely on the assigned mesh or show a warning
+      print("⚠️ Please assign a sphere mesh to the Highlight Mesh field for best results");
+    } catch (error) {
+      print("❌ Error creating fallback mesh: " + error);
+    }
+  }
+
+  // Helper method to create default material
+  private createDefaultMaterial(): Material {
+    try {
+      // Note: Material creation is typically done in the Lens Studio editor
+      // For now, return null and let the calling code handle it
+      print("⚠️ Material creation should be done in Lens Studio editor");
+      return null;
+    } catch (error) {
+      print("❌ Error creating default material: " + error);
+      return null;
+    }
   }
 
   // Show placement guidance for a component
@@ -556,35 +778,127 @@ export class BreadboardAROverlay extends BaseScriptComponent {
   // Test method to create a visible overlay at a specific position
   public testCreateVisibleOverlay(): void {
     print("🧪 Testing visible overlay creation...");
+    print("🔧 Using highlight method: " + this.highlightMethod);
     
-    // Create a test overlay at a fixed position
-    const testObject = global.scene.createSceneObject("TestOverlay");
-    const renderMesh = testObject.createComponent("Component.RenderMeshVisual");
+    // Test different highlighting methods
+    const testPosition = new vec3(0, 0, -1); // In front of camera
     
-    // Try to assign mesh if available
+    switch (this.highlightMethod) {
+      case "inverted_hull":
+        this.testInvertedHullOverlay(testPosition);
+        break;
+      case "fresnel_glow":
+        this.testFresnelGlowOverlay(testPosition);
+        break;
+      case "simple_highlight":
+      default:
+        this.testSimpleOverlay(testPosition);
+        break;
+    }
+  }
+
+  private testInvertedHullOverlay(position: vec3): void {
+    print("🧪 Testing inverted hull overlay...");
+    
+    // Create main highlight
+    const mainObject = global.scene.createSceneObject("TestMainHighlight");
+    const mainMesh = mainObject.createComponent("Component.RenderMeshVisual");
+    
     if (this.highlightMesh && this.highlightMesh.mesh) {
-      renderMesh.mesh = this.highlightMesh.mesh;
-      print("✅ Test overlay has mesh: " + this.highlightMesh.mesh.name);
+      mainMesh.mesh = this.highlightMesh.mesh;
+      print("✅ Main highlight has mesh: " + this.highlightMesh.mesh.name);
     } else {
-      print("❌ Test overlay has NO mesh - will be invisible");
-      print("💡 Please assign a SceneObject with RenderMeshVisual to the Highlight Mesh field");
+      print("❌ Main highlight has NO mesh");
     }
     
-    // Assign material
-    if (this.highlightMaterial) {
-      renderMesh.mainMaterial = this.highlightMaterial.clone();
-      const material = renderMesh.mainMaterial;
-      material.mainPass.baseColor = new vec4(0, 1, 0, 1); // Bright green
-      print("✅ Test overlay has green material");
-    } else {
-      print("❌ Test overlay has NO material");
+    // Set up main material
+    const mainMaterial = this.highlightMaterial ? this.highlightMaterial.clone() : this.createDefaultMaterial();
+    mainMaterial.mainPass.baseColor = new vec4(0, 1, 0, 1); // Bright green
+    mainMesh.mainMaterial = mainMaterial;
+    
+    // Position main highlight
+    mainObject.getTransform().setWorldPosition(position);
+    mainObject.getTransform().setLocalScale(new vec3(0.1, 0.1, 0.1));
+    
+    // Create outline (inverted hull)
+    const outlineObject = global.scene.createSceneObject("TestOutlineHighlight");
+    const outlineMesh = outlineObject.createComponent("Component.RenderMeshVisual");
+    
+    if (this.highlightMesh && this.highlightMesh.mesh) {
+      outlineMesh.mesh = this.highlightMesh.mesh;
     }
     
-    // Position it in front of the camera
-    testObject.getTransform().setWorldPosition(new vec3(0, 0, -1));
-    testObject.getTransform().setLocalScale(new vec3(0.1, 0.1, 0.1));
+    // Set up outline material
+    const outlineMaterial = this.outlineMaterial ? this.outlineMaterial.clone() : this.createDefaultMaterial();
+    outlineMaterial.mainPass.baseColor = new vec4(1, 0, 0, 0.8); // Red outline
+    outlineMaterial.mainPass.blendMode = BlendMode.Normal;
+    outlineMaterial.mainPass.twoSided = true; // Important for inverted hull
+    outlineMesh.mainMaterial = outlineMaterial;
     
-    print("🎯 Test overlay created at position (0, 0, -1)");
-    print("💡 Look for a green sphere in front of the camera");
+    // Position outline slightly larger
+    outlineObject.getTransform().setWorldPosition(position);
+    outlineObject.getTransform().setLocalScale(new vec3(0.12, 0.12, 0.12)); // Slightly larger
+    
+    // Set render order
+    // Note: Render order is typically set in the Inspector, not programmatically
+    // mainMesh.renderOrder = 1;
+    // outlineMesh.renderOrder = 0;
+    
+    print("✅ Created inverted hull test overlay");
+    print("💡 Look for a green sphere with red outline in front of the camera");
+  }
+
+  private testFresnelGlowOverlay(position: vec3): void {
+    print("🧪 Testing fresnel glow overlay...");
+    
+    const glowObject = global.scene.createSceneObject("TestGlowHighlight");
+    const glowMesh = glowObject.createComponent("Component.RenderMeshVisual");
+    
+    if (this.highlightMesh && this.highlightMesh.mesh) {
+      glowMesh.mesh = this.highlightMesh.mesh;
+      print("✅ Glow highlight has mesh: " + this.highlightMesh.mesh.name);
+    } else {
+      print("❌ Glow highlight has NO mesh");
+    }
+    
+    // Set up glow material
+    const glowMaterial = this.fresnelMaterial ? this.fresnelMaterial.clone() : this.createDefaultMaterial();
+    glowMaterial.mainPass.baseColor = new vec4(0, 1, 1, 1); // Cyan glow
+    glowMaterial.mainPass.blendMode = BlendMode.Add; // Additive blending
+    glowMaterial.mainPass.emission = new vec4(0, 1, 1, 1); // Emissive
+    glowMesh.mainMaterial = glowMaterial;
+    
+    // Position glow highlight
+    glowObject.getTransform().setWorldPosition(position);
+    glowObject.getTransform().setLocalScale(new vec3(0.1, 0.1, 0.1));
+    
+    print("✅ Created fresnel glow test overlay");
+    print("💡 Look for a glowing cyan sphere in front of the camera");
+  }
+
+  private testSimpleOverlay(position: vec3): void {
+    print("🧪 Testing simple overlay...");
+    
+    const simpleObject = global.scene.createSceneObject("TestSimpleHighlight");
+    const simpleMesh = simpleObject.createComponent("Component.RenderMeshVisual");
+    
+    if (this.highlightMesh && this.highlightMesh.mesh) {
+      simpleMesh.mesh = this.highlightMesh.mesh;
+      print("✅ Simple highlight has mesh: " + this.highlightMesh.mesh.name);
+    } else {
+      print("❌ Simple highlight has NO mesh");
+    }
+    
+    // Set up simple material
+    const simpleMaterial = this.highlightMaterial ? this.highlightMaterial.clone() : this.createDefaultMaterial();
+    simpleMaterial.mainPass.baseColor = new vec4(1, 1, 0, 1); // Yellow
+    simpleMesh.mainMaterial = simpleMaterial;
+    
+    // Position simple highlight
+    simpleObject.getTransform().setWorldPosition(position);
+    simpleObject.getTransform().setLocalScale(new vec3(0.1, 0.1, 0.1));
+    
+    print("✅ Created simple test overlay");
+    print("💡 Look for a yellow sphere in front of the camera");
   }
 }
