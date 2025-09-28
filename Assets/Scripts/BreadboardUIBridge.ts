@@ -147,7 +147,7 @@ export class BreadboardUIBridge extends BaseScriptComponent {
     this.breadboardAssistant.startAnalysis();
 
     // Update UI for Relay analysis mode
-    this.updateStatusText("Analyzing Relay circuit...");
+    this.updateStatusText("Ask me a question!");
     
     // Hide hint text and title after first button press
     if (!this.hasPressedButtonOnce) {
@@ -260,7 +260,7 @@ export class BreadboardUIBridge extends BaseScriptComponent {
 
   private performCircuitTopologyAnalysis() {
     this.updateUIState(UIState.ShowingGuidance);
-    this.updateStatusText("Analyzing circuit topology...");
+    this.updateStatusText("Ask me a question!");
     
     // The actual analysis is handled by the Gemini assistant
     // This just updates the UI state
