@@ -11,11 +11,13 @@ dock:
           - items:
               - persistentName: Snap.Plugin.Gui.AssetBrowser
                 Uuid: cd11ace2-8507-4965-a068-d85c26031a6b
+              - persistentName: Snap.Plugin.Gui.SpectaclesMonitorPanel
+                Uuid: 13679e07-9c1d-4179-abd4-84cda59d0ef8
             type: section
             current: 0
         sizes:
-          - 800
-          - 461
+          - 603
+          - 658
         type: splitter
         orientation: vertical
       - items:
@@ -27,11 +29,13 @@ dock:
           - items:
               - persistentName: Snap.Plugin.Gui.LoggerPanel
                 Uuid: 81de965d-0c94-4d28-82cf-901740003a1f
+              - persistentName: Snap.Plugin.Gui.ScriptEditorPanel
+                Uuid: ada402c0-62b8-478e-ad40-3868e8882f73
             type: section
             current: 0
         sizes:
-          - 836
-          - 425
+          - 522
+          - 739
         type: splitter
         orientation: vertical
       - items:
@@ -47,9 +51,9 @@ dock:
         type: section
         current: 0
     sizes:
-      - 479
-      - 428
-      - 642
-      - 994
+      - 312
+      - 753
+      - 660
+      - 818
     type: splitter
     orientation: horizontal

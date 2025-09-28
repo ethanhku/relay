@@ -1,0 +1,73 @@
+- !<AssetImportMetadata/de587400-ec27-4c72-ad54-ac840ae2b14e>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 90463a70-a2a4-4517-b5a8-a17f1120a88a
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 90463a70-a2a4-4517-b5a8-a17f1120a88a
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 059bda7f-1bfb-49a2-85e8-d468be8d7238
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/059bda7f-1bfb-49a2-85e8-d468be8d7238>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 751f176a-8552-42a1-b68d-57fc18ec3ce0
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    dynamicAudioOutput: false
+    haveAudioOutput: false
+    haveVideoInput: false
+    instructions: false
+    microphoneRecorder: false
+    voice: false
+    websocketRequirementsObj: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - websocketRequirementsObj: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      dynamicAudioOutput: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      microphoneRecorder: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      instructions: "You are a circuit analysis assistant for non-inverting op amp circuits. You help with two main tasks: 1) Identify resistor values by reading color bands, and 2) Show where resistors should be placed in non-inverting op amp circuits. When the user asks about resistor placement, use the showResistorPlacement tool to highlight the correct location with a green marker."
+      haveVideoInput: true
+      haveAudioOutput: true
+      voice: Puck
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"separator"}'
+    - "// @ui {\"widget\":\"label\", \"label\":\"Breadboard Assistant - Ask: 'What is the resistor value?' or 'Where does the resistor go in the circuit?'\"}"
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Setup"}'
+    - // @input SceneObject websocketRequirementsObj
+    - // @input AssignableType dynamicAudioOutput
+    - // @input AssignableType_1 microphoneRecorder
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Inputs"}'
+    - "// @input string instructions = \"You are a breadboard assistant. You help with two specific questions: 1) 'What is the resistor value?' - identify resistor values by reading color bands, and 2) 'Where does the resistor go in the circuit?' - show where resistors should be placed in non-inverting op amp circuits. When asked about placement, use the showResistorPlacement tool to highlight the correct location with a green marker.\" {\"widget\":\"text_area\"}"
+    - // @input bool haveVideoInput = true
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Outputs"}'
+    - '// @ui {"widget":"label", "label":"<span style=\"color: yellow;\">⚠️ To prevent audio feedback loop in Lens Studio Editor, use headphones or manage your microphone input.</span>"}'
+    - // @input bool haveAudioOutput
+    - '// @input string voice = "Puck" {"widget":"combobox", "values":[{"label":"Puck", "value":"Puck"}, {"label":"Charon", "value":"Charon"}, {"label":"Kore", "value":"Kore"}, {"label":"Fenrir", "value":"Fenrir"}, {"label":"Aoede", "value":"Aoede"}, {"label":"Leda", "value":"Leda"}, {"label":"Orus", "value":"Orus"}, {"label":"Zephyr", "value":"Zephyr"}], "showIf":"haveAudioOutput", "showIfValue":true}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'

@@ -1,0 +1,76 @@
+- !<AssetImportMetadata/79c0b49d-df5d-4634-b730-40069d6318ac>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 5afb453b-3d19-4d20-84b0-b350642bf6d0
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 5afb453b-3d19-4d20-84b0-b350642bf6d0
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> e2a559f3-2b95-4f47-8847-53bfc5488c18
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/e2a559f3-2b95-4f47-8847-53bfc5488c18>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 3dff2e85-1c47-421a-8860-4fa2f00f955a
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    arOverlay: false
+    breadboardAssistant: false
+    hintText: false
+    hintTitle: false
+    showComponentLabels: false
+    showConnectionLines: false
+    sphereController: false
+    startStopButton: false
+    statusText: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - breadboardAssistant: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      arOverlay: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      sphereController: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      startStopButton: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
+      hintTitle: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      hintText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      statusText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      showComponentLabels: true
+      showConnectionLines: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Breadboard Circuit Assistant - Main UI Controller"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Core Components"}'
+    - // @input AssignableType breadboardAssistant
+    - // @input AssignableType_1 arOverlay
+    - // @input AssignableType_2 sphereController
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"UI Elements"}'
+    - // @input AssignableType_3 startStopButton
+    - // @input Component.Text hintTitle
+    - // @input Component.Text hintText
+    - // @input Component.Text statusText
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Analysis Settings"}'
+    - // @input bool showComponentLabels = true
+    - // @input bool showConnectionLines = true
+    - '// @ui {"widget":"group_end"}'

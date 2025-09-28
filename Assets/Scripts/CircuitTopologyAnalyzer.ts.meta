@@ -1,0 +1,67 @@
+- !<AssetImportMetadata/190ca8a0-734c-4412-9de0-5b4273500151>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> d970cebb-e0d6-4001-9a0e-13c069b64505
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> d970cebb-e0d6-4001-9a0e-13c069b64505
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> dc66edce-bbc9-458d-a68c-30f40bac4ce8
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/dc66edce-bbc9-458d-a68c-30f40bac4ce8>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: a7a969da-796a-4ee5-a750-55b9ad5139af
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    analysisConfidenceThreshold: false
+    enableAutoDetection: false
+    enableGainCalculation: false
+    enableRealTimeAnalysis: false
+    maxConnectionDistance: false
+    requirePowerConnections: false
+    targetCircuitType: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - enableRealTimeAnalysis: true
+      analysisConfidenceThreshold: 0.700000
+      maxConnectionDistance: !<float> 50.000000
+      enableGainCalculation: true
+      targetCircuitType: ""
+      enableAutoDetection: true
+      requirePowerConnections: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Circuit Topology Analysis Engine"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Analysis Settings"}'
+    - // @input bool enableRealTimeAnalysis = true
+    - // @input float analysisConfidenceThreshold = 0.7
+    - // @input float maxConnectionDistance = 50
+    - // @input bool enableGainCalculation = true
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Circuit Recognition"}'
+    - // @input string targetCircuitType
+    - // @input bool enableAutoDetection = true
+    - // @input bool requirePowerConnections = true
+    - '// @ui {"widget":"group_end"}'

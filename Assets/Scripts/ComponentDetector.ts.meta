@@ -1,0 +1,79 @@
+- !<AssetImportMetadata/e8c54ede-0e38-469f-a62e-692fa4f88d84>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 3bb44ebc-637b-406f-a97c-963b3e9a6d82
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 3bb44ebc-637b-406f-a97c-963b3e9a6d82
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 5041c3bc-7b2a-4d6b-8d4c-c3ed15b424dd
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/5041c3bc-7b2a-4d6b-8d4c-c3ed15b424dd>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 2da1f4e7-7c75-47e2-a839-079d294e9930
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    detectionMode: false
+    enableColorCodeParsing: false
+    enableColorCodeReading: false
+    enableOpAmpDetection: false
+    enablePinIdentification: false
+    enablePinMapping: false
+    enableResistorDetection: false
+    minConfidenceThreshold: false
+    supportedOpAmpPackages: false
+    supportedResistorTypes: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - detectionMode: ""
+      minConfidenceThreshold: 0.700000
+      enableColorCodeReading: true
+      enablePinIdentification: true
+      enableResistorDetection: true
+      enableColorCodeParsing: true
+      supportedResistorTypes: "axial,smd,through_hole"
+      enableOpAmpDetection: true
+      supportedOpAmpPackages: "dip8,soic8,to99"
+      enablePinMapping: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Advanced Component Detection and Identification"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Detection Settings"}'
+    - // @input string detectionMode
+    - // @input float minConfidenceThreshold = 0.7
+    - // @input bool enableColorCodeReading = true
+    - // @input bool enablePinIdentification = true
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Resistor Detection"}'
+    - // @input bool enableResistorDetection = true
+    - // @input bool enableColorCodeParsing = true
+    - '// @input string supportedResistorTypes = "axial,smd,through_hole"'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Op Amp Detection"}'
+    - // @input bool enableOpAmpDetection = true
+    - '// @input string supportedOpAmpPackages = "dip8,soic8,to99"'
+    - // @input bool enablePinMapping = true
+    - '// @ui {"widget":"group_end"}'

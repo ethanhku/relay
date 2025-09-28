@@ -1,5 +1,6 @@
 ExternalSources:
   type: "std::map<Es::Uuid, Es::Path>"
   value:
-    []
+    - 58446775-7ced-4a15-a864-00cc7ede4aef: /Applications/Lens Studio.app/Contents/JsPlugins/PresetsRegistry/Assets/TypeScript/Resources/Untitled TypeScript.ts
+    - dca46526-27b7-4c84-8cdc-034b241bb6cc: /Applications/Lens Studio.app/Contents/JsPlugins/HelperScriptsRegistry/Assets/Scripts/Resources/Behavior.lsc
   options: 4

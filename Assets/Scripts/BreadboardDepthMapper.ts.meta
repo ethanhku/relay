@@ -1,0 +1,85 @@
+- !<AssetImportMetadata/54366887-09fd-4c3e-b5f1-083f67b17df5>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 96d2c772-fd58-4ab3-a274-2ca12515e71a
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 96d2c772-fd58-4ab3-a274-2ca12515e71a
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 4c87fab2-2a58-4fd3-8fac-ef4b0a1566f7
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/4c87fab2-2a58-4fd3-8fac-ef4b0a1566f7>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 23358a65-e225-4ce2-9e1d-f1c6ed1f8be6
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    autoCalibrate: false
+    breadboardHeight: false
+    breadboardWidth: false
+    calibrationDistance: false
+    depthConfidenceThreshold: false
+    enableDepthAPI: false
+    enablePositionSmoothing: false
+    fallbackDistance: false
+    maxDepthDistance: false
+    minDepthDistance: false
+    smoothingFactor: false
+    useFallbackPositioning: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - enableDepthAPI: true
+      depthConfidenceThreshold: 0.700000
+      maxDepthDistance: !<float> 2.000000
+      minDepthDistance: 0.100000
+      breadboardWidth: 0.200000
+      breadboardHeight: 0.150000
+      calibrationDistance: 0.500000
+      autoCalibrate: true
+      useFallbackPositioning: true
+      fallbackDistance: 0.500000
+      enablePositionSmoothing: true
+      smoothingFactor: 0.100000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"Depth API Integration for Accurate 3D Positioning"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Depth API Settings"}'
+    - // @input bool enableDepthAPI = true
+    - // @input float depthConfidenceThreshold = 0.7
+    - // @input float maxDepthDistance = 2
+    - // @input float minDepthDistance = 0.1
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Breadboard Calibration"}'
+    - // @input float breadboardWidth = 0.2
+    - // @input float breadboardHeight = 0.15
+    - // @input float calibrationDistance = 0.5
+    - // @input bool autoCalibrate = true
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Fallback Settings"}'
+    - // @input bool useFallbackPositioning = true
+    - // @input float fallbackDistance = 0.5
+    - // @input bool enablePositionSmoothing = true
+    - // @input float smoothingFactor = 0.1
+    - '// @ui {"widget":"group_end"}'

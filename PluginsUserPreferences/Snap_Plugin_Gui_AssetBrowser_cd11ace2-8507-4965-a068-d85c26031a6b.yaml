@@ -1,8 +1,9 @@
 CollapsedEntities:
   type: stringset
   value:
-    size: 714
+    size: 722
     values:
+      - Behavior.lsc
       - LSTween.lspkg
       - LSTween.lspkg/Examples
       - LSTween.lspkg/Examples/Assets
@@ -92,10 +93,15 @@ CollapsedEntities:
       - Remote Service Gateway.lspkg/package.native
       - Render
       - Scene.scene
-      - Scripts
       - Scripts/AIAssistantUIBridge.ts
       - Scripts/APIKeyHint.ts
       - Scripts/ASRQueryController.ts
+      - Scripts/BreadboardAROverlay.ts
+      - Scripts/BreadboardAssistant.ts
+      - Scripts/BreadboardDepthMapper.ts
+      - Scripts/BreadboardUIBridge.ts
+      - Scripts/CircuitTopologyAnalyzer.ts
+      - Scripts/ComponentDetector.ts
       - Scripts/ImageGenerator.ts
       - Scripts/InteractableImageGenerator.ts
       - Scripts/InteractableSnap3DGenerator.ts
@@ -104,6 +110,7 @@ CollapsedEntities:
       - Scripts/Snap3DInteractable.ts
       - Scripts/Snap3DInteractableFactory.ts
       - Scripts/SphereController.ts
+      - Scripts/hold.txt
       - SpectaclesInteractionKit.lspkg
       - SpectaclesInteractionKit.lspkg/Assets
       - SpectaclesInteractionKit.lspkg/Assets/Audio
@@ -688,6 +695,7 @@ CollapsedEntities:
       - SpectaclesInteractionKitExamples.lspkg/Examples/SIK Examples.prefab
       - SpectaclesInteractionKitExamples.lspkg/package.native
       - SpectaclesInteractionKitExamples.lspkg/package_dependencies.json
+      - Untitled TypeScript.ts
       - Visuals
       - Visuals/AI Visual
       - Visuals/AI Visual/Animations

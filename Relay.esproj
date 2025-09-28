@@ -27,7 +27,7 @@ metaInfo:
     []
   tags:
     []
-  lensName: AI Playground
+  lensName: Relay
   lensDescriptors:
     []
   lensApplicability:
@@ -36,7 +36,7 @@ metaInfo:
   lensClientCompatibilities:
     - Spectacles
   platformBundlesEnabled: false
-  iconHash: ""
+  iconHash: a322d2f386dd0a66c1b454e75968dcce
   videoPreviewHash: ""
   fromTemplateName: AI Playground
   fromTemplateUrl: Lens Studio 5.12.1.25080420

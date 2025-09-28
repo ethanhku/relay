@@ -1,0 +1,79 @@
+- !<AssetImportMetadata/eb4e3880-330a-4e9b-a39b-f0819e8580b5>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> ba3dcbd0-8157-4431-ae0d-27ba0dc2e26f
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> ba3dcbd0-8157-4431-ae0d-27ba0dc2e26f
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 97263ba8-393a-43f4-afa3-3f356232d7ef
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/97263ba8-393a-43f4-afa3-3f356232d7ef>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: dcd7370b-cf61-4f40-8a13-ea9d8c737c5b
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    breadboardAssistant: false
+    cameraObject: false
+    connectionLineWidth: false
+    connectionMaterial: false
+    depthMapper: false
+    highlightMaterial: false
+    highlightPulseSpeed: false
+    highlightSize: false
+    labelMaterial: false
+    labelOffset: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - breadboardAssistant: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      depthMapper: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      cameraObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      highlightSize: 0.020000
+      highlightPulseSpeed: !<float> 1.000000
+      connectionLineWidth: 0.005000
+      labelOffset: 0.050000
+      highlightMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      connectionMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      labelMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"label", "label":"AR Overlay System for Breadboard Circuit Guidance"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Setup"}'
+    - // @input AssignableType breadboardAssistant
+    - // @input AssignableType_1 depthMapper
+    - // @input SceneObject cameraObject
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Visual Settings"}'
+    - // @input float highlightSize = 0.02
+    - // @input float highlightPulseSpeed = 1
+    - // @input float connectionLineWidth = 0.005
+    - // @input float labelOffset = 0.05
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Materials"}'
+    - // @input Asset.Material highlightMaterial
+    - // @input Asset.Material connectionMaterial
+    - // @input Asset.Material labelMaterial
+    - '// @ui {"widget":"group_end"}'
